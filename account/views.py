@@ -45,7 +45,7 @@ class UserRegister(APIView):
                 "user": email,
                 "username": newuser.username,
                 "token": token,
-                "profile_image": f'{request.scheme}://{request.get_host()}/media/{newuser.userprofile_set.get().profile_picture}'
+                "profile_image": f'{newuser.userprofile_set.get().profile_picture}'
             })
         return Response({
             "status": False,
