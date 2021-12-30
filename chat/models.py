@@ -11,8 +11,8 @@ class Conversation(models.Model):
         ('group', 'group'),
     }
 
-    user_one = models.ForeignKey(UserProfile, related_name="chat_owner", on_delete=models.SET_NULL, null=True)
-    user_two = models.ForeignKey(UserProfile, related_name="chat_visitor", on_delete=models.SET_NULL, null=True)
+    user_one = models.ForeignKey(UserProfile, related_name="chat_owner", on_delete=models.CASCADE, null=True)
+    user_two = models.ForeignKey(UserProfile, related_name="chat_visitor", on_delete=models.CASCADE, null=True)
     room_id = models.CharField(max_length=255, default='')
     conversation_type = models.CharField(max_length=20, default='individual', choices=CONVERSATION_TYPE_CHOICE)
     timestamp = models.DateTimeField(auto_now=True)

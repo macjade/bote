@@ -13,6 +13,7 @@ from django.core.mail import send_mail
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import requests
 
 class UserRegister(APIView):
 
@@ -149,6 +150,34 @@ class VerifyTwoFA(APIView):
         else:
             context['status'] = False
             context['message'] = 'Invalid code'
+
+        return Response(context)
+
+class VerifyNumber(APIView):
+
+    def run_number_api(self, api_key, number, country_code):
+        verify_num = requests.get(f'http://apilayer.net/api/validate?access_key={api_key}&number={number}&country_code={country_code}&format=1')
+        return verify_num.json()
+
+    def verify_number_api(self, number, code):
+        apikeys = ['bbc722bff9aa52c1dd58f53941d71177', '1c7b103759c8a2a7328ccc5fadc4f47d', '46e708ee69f17a987d426ac389598892']
+        result = {}
+        # for i in apikeys:
+        temp_result = self.run_number_api(apikeys[0], number, code)
+        result = temp_result
+        return result
+
+    def get(self, request):
+        context = {}
+        data = request.GET
+        number = data['number']
+        code = data['code']
+
+        get_number = self.verify_number_api(number, code)
+        if get_number.get('valid', False):
+            context['status'] = True
+        else:
+            context['status'] = True
 
         return Response(context)
 
