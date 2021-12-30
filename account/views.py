@@ -155,6 +155,8 @@ class VerifyTwoFA(APIView):
 
 class VerifyNumber(APIView):
 
+    permission_classes = (permissions.AllowAny, )
+
     def run_number_api(self, api_key, number, country_code):
         verify_num = requests.get(f'http://apilayer.net/api/validate?access_key={api_key}&number={number}&country_code={country_code}&format=1')
         return verify_num.json()
