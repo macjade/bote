@@ -164,9 +164,20 @@ class VerifyNumber(APIView):
     def verify_number_api(self, number, code):
         apikeys = ['bbc722bff9aa52c1dd58f53941d71177', '1c7b103759c8a2a7328ccc5fadc4f47d', '46e708ee69f17a987d426ac389598892']
         result = {}
-        # for i in apikeys:
-        temp_result = self.run_number_api(apikeys[0], number, code)
-        result = temp_result
+        for i in apikeys:
+            temp_result = self.run_number_api(i, number, code)
+            if 'success' in temp_result.keys():
+                if temp_result['error']['code'] == 104:
+                    continue
+
+            if 'valid' in temp_result.keys():
+                result = temp_result
+                break
+        else:
+            result = {
+                'valid': False
+            }
+
         return result
 
     def get(self, request):
@@ -176,10 +187,10 @@ class VerifyNumber(APIView):
         code = data['code']
 
         get_number = self.verify_number_api(number, code)
-        if get_number.get('valid', False):
+        if get_number['valid']:
             context['status'] = True
         else:
-            context['status'] = True
+            context['status'] = False
 
         return Response(context)
 
