@@ -117,7 +117,7 @@ class NewTwoFAToken(APIView):
                 <p>Your Bote verification code</p>
                 <b>{newtoken.verification_code}</b>
             """
-            send_mail(subject, body, 'noreply <bote@gorlas.net>', [user.user.email], fail_silently=False, html_message=body)
+            send_mail(subject, body, 'noreply <bote@jamesmaduka.com>', [user.user.email], fail_silently=False, html_message=body)
             context['status'] = True
             return Response(context)
 
@@ -215,7 +215,7 @@ class SendPasswordResetEmail(APIView):
                             <p>Your Bote password reset link</p>
                             <a href="https://festive-albattani-dba546.netlify.app/resetpassword/{newresettoken.token}/">Click here to reset you password</a>
                         """
-            send_mail(subject, body, 'noreply <bote@gorlas.net>', [email], fail_silently=False, html_message=body)
+            send_mail(subject, body, 'noreply <bote@jamesmaduka.com>', [email], fail_silently=False, html_message=body)
             context['status'] = True
             context['message'] = "Instructions has been sent to your email"
         else:

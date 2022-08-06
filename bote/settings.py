@@ -199,12 +199,12 @@ CLOUDINARY = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.gorlas.net'
-EMAIL_HOST_USER = 'bote@gorlas.net'
+EMAIL_HOST = 'mail.jamesmaduka.com'
+EMAIL_HOST_USER = 'bote@jamesmaduka.com'
 EMAIL_HOST_PASSWORD = 'Bote001'
 EMAIL_PORT = 26
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'noreply <bote@gorlas.net>'
+DEFAULT_FROM_EMAIL = 'noreply <bote@jamesmaduka.com>'
 
 
 django_heroku.settings(locals())
